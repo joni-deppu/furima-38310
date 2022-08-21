@@ -1,0 +1,18 @@
+# FactoryBot.define do
+#   factory :item do
+#     item_name { Faker::Name.name }
+#     detail    {Faker::Lorem.sentence}
+#     price     { Faker::Number.between(from: 300, to: 9999999) }
+    # category   { Category.all.sample }
+    condition    { Condition.all.sample }
+    cost          { Cost.all.sample }
+    prefecture    { Prefecture.all.sample }
+    scheduled_day { ScheduledDay.all.sample }
+#     association :user 
+
+#     after(:build) do |item|
+#       item.image.attach(io: File.open('public/images/画像01.png'), filename: '画像01.png')
+#     end
+#   end
+  
+# end

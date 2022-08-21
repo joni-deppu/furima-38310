@@ -2,10 +2,10 @@ class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :user
   belongs_to :category
-  has_many :condition
-  has_many :cost
+  belongs_to :condition
+  belongs_to :cost
   belongs_to :prefecture
-  has_many :scheduled_day
+  belongs_to :scheduled_day
   has_one_attached :image
   # has_one :buy
 
