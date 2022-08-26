@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
 
   def index
     @order_address = OrderAddress.new
+    @item = Item.find(params[:item_id])
   end
 
   def create    
@@ -25,11 +26,18 @@ class OrdersController < ApplicationController
     params.require(:order_address).permit(:post_code, :prefecture_id, :city, :banti, :tatemono, :tel).merge(user_id: current_user.id, item_id: params[:item_id])
 
     # params.require(:order_address).permit(:post_code, :prefecture_id, :city, :banti, :tatemono, :tel, item_id).merge(user_id: current_user.id) item_idがparamsの中に入っていた
-# /    params.permit(:item_id).merge(user_id: current_user.id)
-  #  params.permit("???").merge(user_id: current_user.id, item_id: params[:item_id])
+
+
+    #  params.permit("???").merge(user_id: current_user.id, item_id: params[:item_id])
   end
 
+
+  # def order_params
+  #     params.permit(:item_id).merge(user_id: current_user.id)
+  # end
   # def address_params
   #   params.permit(:post_code, :prefecture_id, :city, :banti, :tatemono, :tel).merge(order_id: @order.id)
   # end
+
+
 end
