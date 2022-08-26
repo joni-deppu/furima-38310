@@ -7,7 +7,7 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :scheduled_day
   has_one_attached :image
-  # has_one :buy
+  has_one :order
   with_options presence: true do
     validates :item_name, length: { maximum: 40 }
     validates :detail, length: { maximum: 1000 }
