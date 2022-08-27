@@ -53,7 +53,7 @@ RSpec.describe OrderAddress, type: :model do
       it '電話番号は、10桁以上11桁以内の半角数値以外を含んだものでは保存できないこと' do
         @order_address.tel = '012345678-9'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include('Tel is invalid')
+        expect(@order_address.errors.full_messages).to include('Tel is invalid. Input only number')
       end
       it '電話番号は、9桁以内の半角数値では保存できないこと' do
         @order_address.tel = '012345678'
