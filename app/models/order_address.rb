@@ -1,13 +1,11 @@
 class OrderAddress
 
   include ActiveModel::Model
-  attr_accessor :post_code, :prefecture_id, :city, :banti, :tatemono, :tel, :user_id, :item_id  
+  attr_accessor :post_code, :prefecture_id, :city, :banti, :tatemono, :tel, :user_id, :item_id, :token
   
   # 下記記述はカリキュラム移しただけ、後で修正
   # oreder のバリデーション
-  validates :user_id, :item_id, presence: true
-  # 1以上、1000000以下の整数を許可する
-  # validates :price, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 1000000, message: "is invalid"}
+  validates :user_id, :item_id, :token, presence: true
 
   # addressのバリデーション
   # 数字3桁、ハイフン、数字4桁の並びのみ許可する
@@ -16,6 +14,7 @@ class OrderAddress
   validates :prefecture_id, numericality: {other_than: 1, message: "can't be blank"}
   validates :tel, presence: true, format: {with: /\A[0-9]{10,11}\z/}, length: { minimum:10, maximum: 11 }
   validates  :city, :banti, presence: true
+  # validates  :number,presence: true, format: {with: /\A[0-9]{16}\z/}
   def save
     # 寄付情報を保存し、変数donationに代入する
     order = Order.create(user_id: user_id, item_id: item_id)
