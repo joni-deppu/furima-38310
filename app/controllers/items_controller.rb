@@ -21,12 +21,12 @@ class ItemsController < ApplicationController
 
   def show
     if Order.find_by(item_id: @item.id)
-    redirect_to '/' 
+    redirect_to root_path 
     end
   end
 
   def edit
-    redirect_to '/' unless current_user.id == @item.user_id
+    redirect_to root_path unless current_user.id == @item.user_id
   end
 
   def update

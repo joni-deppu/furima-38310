@@ -33,26 +33,6 @@ function order (){
 
       }
     });
-
-
-  // const cardNumber = document.getElementById("card-number");
-  // const cardExpMonth = document.getElementById("card-exp-month");
-  // const cardExpYear = document.getElementById("card-exp-year");
-  // const cardCvc = document.getElementById("card-cvc");
-  // const cardData = new FormData(cardNumber);
-  // const XHR = new XMLHttpRequest();
-  // XHR.open("POST", "/items/#{item.id}/orders", true);
-  // XHR.responseType = "json";
-  // XHR.send(formData);
-  // console.log(cardData)
-
-// };
-
-     //      const taxPrice = document.getElementById("add-tax-price");
-//      taxPrice.innerHTML = Math.floor(inputPrice * 0.1);
-//       const profit  = document.getElementById("profit");
-//       profit.innerHTML = inputPrice - taxPrice.innerHTML;
-
  });
 
 };
