@@ -20,6 +20,9 @@ class ItemsController < ApplicationController
   end
 
   def show
+    if Order.find_by(item_id: @item.id)
+    redirect_to '/' 
+    end
   end
 
   def edit
