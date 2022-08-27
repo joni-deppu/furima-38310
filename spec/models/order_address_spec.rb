@@ -5,7 +5,8 @@ RSpec.describe OrderAddress, type: :model do
     before do
       user = FactoryBot.create(:user)
       item = FactoryBot.create(:item)
-      @order_address = FactoryBot.build(:order_address, user_id: user.id, item_id: item.id)
+      order = FactoryBot.create(:order, user_id: user.id, item_id: item.id)
+      @order_address = FactoryBot.build(:order_address, user_id: user.id, item_id: item.id, order_id: order.id)
     end
 
     context '内容に問題ない場合' do
@@ -27,7 +28,7 @@ RSpec.describe OrderAddress, type: :model do
       it 'post_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
         @order_address.post_code = '1111111'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
+        expect(@order_address.errors.full_messages).to include('Post code is invalid. Include hyphen(-)')
       end
       it 'prefectureが"---"だと保存できないこと' do
         @order_address.prefecture_id = 1
@@ -50,19 +51,19 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order_address.errors.full_messages).to include("Tel can't be blank")
       end
       it '電話番号は、10桁以上11桁以内の半角数値以外を含んだものでは保存できないこと' do
-        @order_address.tel = 111111111-1
+        @order_address.tel = '012345678-9'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Tel is invalid")
+        expect(@order_address.errors.full_messages).to include('Tel is invalid')
       end
       it '電話番号は、9桁以内の半角数値では保存できないこと' do
-        @order_address.tel = 111111111
+        @order_address.tel = '012345678'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Tel is too short (minimum is 10 characters)")
+        expect(@order_address.errors.full_messages).to include('Tel is too short (minimum is 10 characters)')
       end
       it '電話番号は、12桁以上の半角数値では保存できないこと' do
-        @order_address.tel = 123456789012
+        @order_address.tel = '012345678901'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Tel is too long (maximum is 11 characters)")
+        expect(@order_address.errors.full_messages).to include('Tel is too long (maximum is 11 characters)')
       end
       it 'userが紐付いていないと保存できないこと' do
         @order_address.user_id = nil
@@ -78,6 +79,11 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.token = nil
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'orderが紐付いていないと保存できないこと' do
+        @order_address.order_id = nil
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Order can't be blank")
       end
     end
   end

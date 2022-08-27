@@ -20,9 +20,7 @@ class ItemsController < ApplicationController
   end
 
   def show
-    if Order.find_by(item_id: @item.id)
-    redirect_to root_path 
-    end
+    redirect_to root_path if Order.find_by(item_id: @item.id)
   end
 
   def edit
@@ -39,8 +37,8 @@ class ItemsController < ApplicationController
 
   def destroy
     if current_user.id == @item.user_id
-    @item.delete
-    redirect_to root_path
+      @item.delete
+      redirect_to root_path
     end
   end
 
