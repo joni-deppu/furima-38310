@@ -5,8 +5,7 @@ RSpec.describe OrderAddress, type: :model do
     before do
       user = FactoryBot.create(:user)
       item = FactoryBot.create(:item)
-      # order = FactoryBot.create(:order)
-      @order_address = FactoryBot.build(:order_address, user_id: user.id, item_id: item.id)#, order_id: order.id)
+      @order_address = FactoryBot.build(:order_address, user_id: user.id, item_id: item.id)
       sleep 0.1 
     end
 
@@ -76,12 +75,6 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Item can't be blank")
       end
-      # it 'oderが紐付いていないと保存できないこと' do
-      #   @order_address.order_id = nil
-      #   @order_address.valid?
-      #   binding.pry
-      #   expect(@order_address.errors.full_messages).to include("Item can't be blank")
-      # end
     end
   end
 end
