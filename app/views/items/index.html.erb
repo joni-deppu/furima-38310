@@ -136,12 +136,12 @@
         <div class='item-img-content'>
           <%= image_tag items.image, class: "item-img" %>
 
-          <%# 商品が売れていればsold outを表示 %>
+          <% if Order.find_by(item_id: items.id) %>
           <div class='sold-out'>
             <span>Sold Out!!</span>
           </div>
-          <%# //商品が売れていればsold outを表示 %>
-
+          <% end%>
+          
         </div>
         <div class='item-info'>
           <h3 class='item-name'>
