@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', function(){
     // 表示する画像を生成<img class="preview-image" src="blob">
     const previewImage = document.createElement('img');
     previewImage.setAttribute('class', 'preview-image');
+    previewImage.setAttribute('style', 'width: 33vh;')
+    previewImage.setAttribute('style', 'height: 33vh;')
     previewImage.setAttribute('src', blob);
 
         // 生成したHTMLの要素をブラウザに表示させる 自分で記述したpreviewsの中に下から３２−３４行分を挿入
