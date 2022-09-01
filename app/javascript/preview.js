@@ -7,44 +7,67 @@ document.addEventListener('DOMContentLoaded', function(){
   if (!itemForm) return null;
   console.log("preview.jsが読み込まれました");
 
-    // input要素を取得
-    const fileField = document.querySelector('input[type="file"][name="item[image]"]');
-    // input要素で値の変化が起きた際に呼び出される関数
-    fileField.addEventListener('change', function(e){
-      console.log("input要素で値の変化が起きました");
-      console.log(e.target.files[0]);
-      const file = e.target.files[0];
-      const blob = window.URL.createObjectURL(file);
-      console.log(blob);
+  // プレビュー画像を生成・表示する関数
+  const buildPreviewImage = (dataIndex, blob) =>{
+         // 画像を表示するためのdiv要素を生成<div class="preview"></div>
+         const previewWrapper = document.createElement('div');
+         previewWrapper.setAttribute('class', 'preview');
+         previewWrapper.setAttribute('data-index', dataIndex);
+     
+         // 表示する画像を生成<img class="preview-image" src="blob">
+         const previewImage = document.createElement('img');
+         previewImage.setAttribute('class', 'preview-image');
+         previewImage.setAttribute('src', blob);
+     
+         // 生成したHTMLの要素をブラウザに表示させる 自分で記述したpreviewsの中に下から３２−３４行分を挿入
+         previewWrapper.appendChild(previewImage);
+         previewList.appendChild(previewWrapper);
+  };
 
-          // 古いプレビューが存在する場合は削除 ２８行目で作成したpreviewがあるかないか
-    const alreadyPreview = document.querySelector('.preview');
-    if (alreadyPreview) {
-      alreadyPreview.remove();
-    };
+     // file_fieldを生成・表示する関数
+     const buildNewFileField = () => {
+      // 2枚目用のfile_fieldを作成
+      const newFileField = document.createElement('input');
+      newFileField.setAttribute('type', 'file');
+      newFileField.setAttribute('name', 'item[images][]');    
+  
+      // 最後のfile_fieldを取得
+      const lastFileField = document.querySelector('input[type="file"][name="item[images][]"]:last-child');
+      // nextDataIndex = 最後のfile_fieldのdata-index + 1
+      const nextDataIndex = Number(lastFileField.getAttribute('data-index')) +1;
+      newFileField.setAttribute('data-index', nextDataIndex);
+          // 追加されたfile_fieldにchangeイベントをセット
+    newFileField.addEventListener("change", changedFileField);
 
-      // 画像を表示するためのdiv要素を生成<div class="preview"></div>
-    const previewWrapper = document.createElement('div');
-    previewWrapper.setAttribute('class', 'preview');
-    // 表示する画像を生成<img class="preview-image" src="blob">
-    const previewImage = document.createElement('img');
-    previewImage.setAttribute('class', 'preview-image');
-    previewImage.setAttribute('style', 'width: 33vh;')
-    previewImage.setAttribute('style', 'height: 33vh;')
-    previewImage.setAttribute('src', blob);
+      // 生成したfile_fieldを表示
+      const fileFieldsArea = document.querySelector('.click-upload');
+      fileFieldsArea.appendChild(newFileField);
+     };
 
-        // 生成したHTMLの要素をブラウザに表示させる 自分で記述したpreviewsの中に下から３２−３４行分を挿入
-        // <親previewList>  const previewList = document.getElementById('previews');
-        // <子previewWrapper><div class="preview"></div>
-        // <孫previewImage><img class="preview-image" src="blob">
-        // <div id="previews">
-        // <div class="preview">
-        // <img class="preview-image" src="blob">
-        // </div>
-        // </div>
-        previewWrapper.appendChild(previewImage);
-        previewList.appendChild(previewWrapper);
+        // input要素で値の変化が起きた際に呼び出される関数の中身
+  const changedFileField = (e) => {
+
+    // data-index（何番目を操作しているか）を取得
+    const dataIndex = e.target.getAttribute('data-index');
+    console.log( dataIndex);
+// 二番目のフォームが出てきたが、反映されていない。でも多分あってる
+
+
+    const file = e.target.files[0];
+    const blob = window.URL.createObjectURL(file);
+    console.log(blob);
+    buildPreviewImage(dataIndex, blob);
+    buildNewFileField();
+  };
+        // input要素を取得
+        const fileField = document.querySelector('input[type="file"][name="item[images][]"]');
+        // input要素で値の変化が起きた際に呼び出される関数
+        fileField.addEventListener('change', changedFileField);
     
 
-});
+
+
+
+    
+
 });
