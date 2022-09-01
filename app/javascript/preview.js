@@ -19,8 +19,17 @@ document.addEventListener('DOMContentLoaded', function(){
          previewImage.setAttribute('class', 'preview-image');
          previewImage.setAttribute('src', blob);
      
+    // 削除ボタンを生成
+    const deleteButton = document.createElement("div");
+    deleteButton.setAttribute("class", "image-delete-button");
+    deleteButton.innerText = "削除";
+
+    // 削除ボタンをクリックしたらプレビューとfile_fieldを削除させる
+    deleteButton.addEventListener("click", () => deleteImage(dataIndex));
+
          // 生成したHTMLの要素をブラウザに表示させる 自分で記述したpreviewsの中に下から３２−３４行分を挿入
          previewWrapper.appendChild(previewImage);
+         previewWrapper.appendChild(deleteButton);
          previewList.appendChild(previewWrapper);
   };
 
@@ -43,6 +52,13 @@ document.addEventListener('DOMContentLoaded', function(){
       const fileFieldsArea = document.querySelector('.click-upload');
       fileFieldsArea.appendChild(newFileField);
      };
+  // 指定したdata-indexを持つプレビューとfile_fieldを削除する
+  const deleteImage = (dataIndex) => {
+    const deletePreviewImage = document.querySelector(`.preview[data-index="${dataIndex}"]`);
+    deletePreviewImage.remove();
+    const deleteFileField = document.querySelector(`input[type="file"][data-index="${dataIndex}"]`);
+    deleteFileField.remove();
+  };
 
         // input要素で値の変化が起きた際に呼び出される関数の中身
   const changedFileField = (e) => {
@@ -50,12 +66,28 @@ document.addEventListener('DOMContentLoaded', function(){
     // data-index（何番目を操作しているか）を取得
     const dataIndex = e.target.getAttribute('data-index');
     console.log( dataIndex);
-// 二番目のフォームが出てきたが、反映されていない。でも多分あってる
 
 
     const file = e.target.files[0];
+        // fileが空 = 何も選択しなかったのでプレビュー等を削除して終了する
+        if (!file) {
+          deleteImage(dataIndex);
+          return null;
+        };
+    
     const blob = window.URL.createObjectURL(file);
     console.log(blob);
+
+    // data-indexを使用して、既にプレビューが表示されているかを確認する
+    const alreadyPreview = document.querySelector(`.preview[data-index="${dataIndex}"]`);
+
+    if (alreadyPreview) {
+      // クリックしたfile_fieldのdata-indexと、同じ番号のプレビュー画像が既に表示されている場合は、画像の差し替えのみを行う
+      const alreadyPreviewImage = alreadyPreview.querySelector("img");
+      alreadyPreviewImage.setAttribute("src", blob);
+      return null;
+    };
+
     buildPreviewImage(dataIndex, blob);
     buildNewFileField();
   };
