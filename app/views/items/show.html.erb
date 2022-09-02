@@ -6,23 +6,26 @@
     <h2 class="name">
       <%= @item.item_name %>
     </h2>
-    <div class="item-img-content">
-      <%= image_tag @item.image ,class:"item-box-img" %>
-      <% if Order.find_by(item_id: @item.id) %>
-      <div class="sold-out">
-        <span>Sold Out!!</span>
+    <div class="item-img-contents">
+      <% @item.images[0..-1].each do |image| %>
+        <div class="item-img-content">
+          <% if Order.find_by(item_id: @item.id) %>
+          <div class="sold-out">
+            <span>Sold Out!!</span>
+          </div>
+          <%end %>
+          <%= image_tag image ,class:"item-box-img" %>
+        </div>
+      <%end%>
+    </div>
+      <div class="item-price-box">
+        <span class="item-price">
+          ¥<%= @item.price %>
+        </span>
+        <span class="item-postage">
+          <%= Cost.find(@item.cost_id).name %>
+        </span>
       </div>
-      <%end %>
-    </div>
-    <div class="item-price-box">
-      <span class="item-price">
-        ¥<%= @item.price %>
-      </span>
-      <span class="item-postage">
-        <%= Cost.find(@item.cost_id).name %>
-      </span>
-    </div>
-
     <% if user_signed_in? && @item.order.blank? %>
       <% if current_user.id == @item.user_id %>
         <%= link_to "商品の編集", edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
