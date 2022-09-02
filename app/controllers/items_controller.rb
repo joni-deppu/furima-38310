@@ -23,7 +23,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    redirect_to root_path if current_user.id != @item.user_id || @item.order.present?
+    if current_user.id != @item.user_id || @item.order.present?
+    redirect_to root_path 
+    end
   end
 
   def update
@@ -44,8 +46,8 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:item_name, :detail, :category_id, :condition_id, :cost_id, :prefecture_id,
-                                 :scheduled_day_id, :price, { images: [] }).merge(user_id: current_user.id)
+    params.require(:item).permit(:image, :item_name, :detail, :category_id, :condition_id, :cost_id, :prefecture_id,
+                                 :scheduled_day_id, :price).merge(user_id: current_user.id)
   end
 
   def set_action
