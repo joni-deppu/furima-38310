@@ -8,7 +8,6 @@ require("@rails/activestorage").start()
 require("channels")
 require("../tax")
 require("../order")
-require("../preview")
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
