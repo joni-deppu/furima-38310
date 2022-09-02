@@ -26,6 +26,8 @@
 }
 
 .item-box-img {
+  display: flex;
+  margin-bottom: 5px;
   height: 50vh;
   width: 60vw;
   min-height: 500px;

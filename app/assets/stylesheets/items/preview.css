@@ -9,13 +9,18 @@
 }
 
 
-.other-images {
+/* .other-images {
   display: flex;
-}
+  /* height: 33vh;
+  width: 33vw; */
+  /* min-height: 500px; */
+  /* background-color: rgb(205, 202, 202); */
 
-.other-image {
-  margin-right: 10px;
-}
+/* .other-image {
+  /* object-fit: contain; */
+  /* height: 30px;
+  width: 30px;
+}  */
 
 .image-delete-button {
   text-align: center;
