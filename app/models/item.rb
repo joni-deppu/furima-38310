@@ -8,4 +8,7 @@ class Item < ApplicationRecord
   belongs_to :scheduled_day
   has_many_attached :images
   has_one :order
+  has_many :item_tag_relations
+  has_many :tags, through: :item_tag_relations
+
 end

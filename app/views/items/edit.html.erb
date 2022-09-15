@@ -48,6 +48,11 @@ app/assets/stylesheets/items/new.css %>
       <div class="weight-bold-text">商品の詳細</div>
       <div class="form">
         <div class="weight-bold-text">
+          タグ
+          <span class="indispensable">任意</span>
+        </div>
+        <%= f.text_field :tag_name, class:"items-text", placeholder:"タグ（任意 18文字まで)", maxlength:"18" %>
+        <div class="weight-bold-text">
           カテゴリー
           <span class="indispensable">必須</span>
         </div>
@@ -117,7 +122,7 @@ app/assets/stylesheets/items/new.css %>
       </div>
     </div>
     <%# /販売価格 %>
-
+          
     <%# 注意書き %>
     <div class="caution">
       <p class="sentence">
