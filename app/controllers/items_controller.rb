@@ -25,10 +25,24 @@ class ItemsController < ApplicationController
 
   def edit
     redirect_to root_path if current_user.id != @item.user_id || @item.order.present?
+        # @itemから情報をハッシュとして取り出し、@item_formとしてインスタンス生成する
+        item_attributes = @item.attributes
+        @item_form = ItemForm.new(item_attributes)
+    
   end
 
   def update
-    if @item.update(item_params)
+    # paramsの内容を反映したインスタンスを生成する
+    @item_form = ItemForm.new(item_form_params)
+
+    # 画像を選択し直していない場合は、既存の画像をセットする
+    @item_form.images ||= @item.images.blobs
+
+
+        if @item_form.valid?
+          @item_form.update(item_form_params, @item)
+    
+    
       redirect_to item_path
     else
       render :edit

@@ -3,7 +3,8 @@ class ItemForm
 
     #ItemFormクラスのオブジェクトがItemモデルの属性を扱えるようにする
     attr_accessor :item_name, :detail, :category_id, :condition_id,
-     :cost_id, :prefecture_id, :scheduled_day_id, :price, :user_id, :images
+     :cost_id, :prefecture_id, :scheduled_day_id, :price, :user_id, :images,
+     :id, :created_at, :datetime, :updated_at, :datetime
 
     with_options presence: true do
       validates :item_name, length: { maximum: 40 }
@@ -19,6 +20,10 @@ class ItemForm
         item_name: item_name, detail: detail, category_id: category_id, condition_id: condition_id,
          cost_id: cost_id, prefecture_id: prefecture_id, scheduled_day_id: scheduled_day_id, price: price, user_id: user_id, images: images 
         )
+    end
+
+    def update(params, item)
+      item.update(params)      
     end
   
   
