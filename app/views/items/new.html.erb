@@ -5,7 +5,7 @@
   </header>
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
-    <%= form_with model: @item, url:items_path, id: 'new_item', local: true do |f| %>
+    <%= form_with model: @item_form, url:items_path, id: 'new_item', local: true do |f| %>
 
     <%= render 'shared/error_messages', model: f.object %>
 
@@ -20,7 +20,7 @@
         <p>
           クリックしてファイルをアップロード
         </p>
-        <%= f.file_field :images, id:"item-images", name:"item[images][]", data: {index: 0} %>
+        <%= f.file_field :images, id:"item-images", name:"item_form[images][]", data: {index: 0} %>
       </div>
     </div>
     <%# /商品画像 %>
@@ -45,6 +45,12 @@
     <div class="items-detail">
       <div class="weight-bold-text">商品の詳細</div>
       <div class="form">
+        <div class="weight-bold-text">
+          タグ
+          <span class="indispensable">任意</span>
+        </div>
+        <%= f.text_field :tag_name, class:"items-text", placeholder:"タグ（任意 18文字まで)", maxlength:"18" %>
+        <div id="search-result"></div>
         <div class="weight-bold-text">
           カテゴリー
           <span class="indispensable">必須</span>
@@ -115,7 +121,6 @@
       </div>
     </div>
     <%# /販売価格 %>
-
     <%# 注意書き %>
     <div class="caution">
       <p class="sentence">
