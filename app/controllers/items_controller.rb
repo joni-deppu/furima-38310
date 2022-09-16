@@ -55,9 +55,17 @@ class ItemsController < ApplicationController
   end
 
   def search
+
+    # タグ入力のための記述
     return nil if params[:keyword] == ""
     tag = Tag.where(['tag_name LIKE ?', "%#{params[:keyword]}%"] )
     render json:{ keyword: tag }
+  end
+
+  def item_search
+    # 商品検索のための記述
+    @q = Item.ransack(params[:q])
+    @items = @q.result
   end
 
 

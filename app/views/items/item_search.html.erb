@@ -1,0 +1,77 @@
+<%= render "shared/header" %>
+<div class="item_search_main">
+  <div class='item-contents' id="detaile-item_search-result-wrapper">
+    <h2 class='title'>検索条件</h2>
+    <div class="subtitle" >
+      検索フォーム
+    </div>
+    <!-- 検索入力フォーム -->
+    <%= search_form_for @q, url: item_search_items_path, html: {id: "detailed-item_search-form"} do |f| %>
+      <div class="item_search-field">
+        <%= f.label :item_item_name, '商品名' %>
+        <br>
+        <%= f.text_field :item_name, placeholder: '商品名', value: params[:q]&.dig(:item_name) %>
+      </div>
+      <div class="item_search-field">
+        <%= f.label :user_nickname_cont, '出品者名' %>
+        <br>
+        <%= f.text_field :user_nickname_cont, placeholder: '出品者名' %>
+      </div>
+      <div class="item_search-field">
+        <%= f.label :category_id_in, 'カテゴリ' %>
+        <br>
+        <%= f.collection_check_boxes(:category_id_in, Category.where.not(id: 1), :id, :name ) %>
+      </div>
+      <div class="item_search-field">
+        <%= f.label :price_gteq, '価格'%>
+        <br>
+        <%= f.number_field :price_gteq %> 円以上
+        <br>
+        <%= f.number_field :price_lteq %> 円以下
+      </div>
+      <%= f.submit '検索' %>
+    <% end %>
+  </div>
+    <!-- 検索結果の表示 -->
+
+  <%# 商品一覧 %>
+  <div class='item-contents'>
+    <h2 class='title'>検索結果</h2>
+    <div class="subtitle" >
+      該当商品
+    </div>
+    <ul class='item_search-lists'>
+
+      <% @items.each do |items| %>
+
+      <li class='list'>
+        <%= link_to item_path(items.id) do %>
+        <div class='item-img-content'>
+          <%= image_tag items.images[0], class: "item-img" %>
+
+          <% if Order.find_by(item_id: items.id) %>
+          <div class='sold-out'>
+            <span>Sold Out!!</span>
+          </div>
+          <% end%>
+          
+        </div>
+        <div class='item-info'>
+          <h3 class='item-name'>
+            <%= items.item_name %>
+          </h3>
+          <div class='item-price'>
+            <span><%= items.price %>円<br><%= Cost.find(items.cost_id).name %></span>
+            <div class='star-btn'>
+              <%= image_tag "star.png", class:"star-icon" %>
+              <span class='star-count'>0</span>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <%# /商品一覧 %>
+</div>
