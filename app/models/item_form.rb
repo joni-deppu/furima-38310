@@ -17,7 +17,7 @@ class ItemForm
       validates :category_id, :condition_id, :cost_id, :prefecture_id, :scheduled_day_id,
                 numericality: { other_than: 1, message: "can't be blank" }
     end
-    validates :tag_name,  uniqueness: true, length: { maximum: 18 }
+    validates :tag_name, length: { maximum: 18 }
 
   
     def save
