@@ -215,6 +215,21 @@ a {
 
 /* 商品一覧 */
 
+.item_search_main {
+  display: flex;
+  margin: 20px;
+
+}
+
+.item_search-contents {
+  background-color: #FFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10vh 0;
+  width: 70%;
+}
+
 .item-contents {
   background-color: #FFF;
   display: flex;
@@ -227,6 +242,19 @@ a {
   font-size: 5vh;
   line-height: 1.4;
   font-weight: bold;
+}
+
+.item_search-lists {
+  width: 80vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.item_search-lists>.list {
+  width: 37vh;
+  padding: 1vw;
+  background-color: #FFF;
 }
 
 .item-contents>.subtitle {
