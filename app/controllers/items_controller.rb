@@ -54,7 +54,7 @@ class ItemsController < ApplicationController
     end
   end
 
-  def search
+  def tag_search
 
     # タグ入力のための記述
     return nil if params[:keyword] == ""
