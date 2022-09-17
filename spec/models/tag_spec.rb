@@ -24,6 +24,11 @@ RSpec.describe Tag, type: :model do
         another_tag.valid?
         expect(another_tag.errors.full_messages).to include('Tag name has already been taken')
       end
+      it 'タグが19字以上では登録できない' do
+        @tag.tag_name = 'あ' * 19
+        @tag.valid?
+        expect(@tag.errors.full_messages).to include('Tag name is too long (maximum is 18 characters)')
+      end
     end
   end
 end
