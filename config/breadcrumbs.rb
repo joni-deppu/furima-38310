@@ -22,6 +22,21 @@ crumb :item_order do |item|
   parent :item_show, item
 end
 
+crumb :item_edit do |item|
+  link "商品名:#{item.item_name}の編集", edit_item_path(item)
+  parent :item_show, item
+end
+
+crumb :item_new do
+  link "商品の出品", new_item_path
+  parent :root
+end
+
+crumb :item_search do
+  link "商品の検索", item_search_items_path
+  parent :root
+end
+
 # crumb :projects do
 #   link "Projects", projects_path
 # end
