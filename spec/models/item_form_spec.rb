@@ -94,7 +94,7 @@ RSpec.describe ItemForm, type: :model do
         @item_form.valid?
         expect(@item_form.errors.full_messages).to include('Price is not a number')
       end
-      it 'userが紐付いていないと保存できない' do
+      it 'userが紐付いていない（user_idが空だ）と保存できない' do
         @item_form.user_id = nil
         @item_form.valid?
         expect(@item_form.errors.full_messages).to include("User can't be blank")
