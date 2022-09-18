@@ -2,6 +2,17 @@ crumb :root do
   link "Home", root_path
 end
 
+crumb :user_new do
+  link "ユーザー登録", new_user_registration_path
+  parent :root
+end
+
+crumb :user_sign_in do
+  link "ログイン", new_user_session_path
+  parent :root
+end
+
+
 # crumb :projects do
 #   link "Projects", projects_path
 # end
