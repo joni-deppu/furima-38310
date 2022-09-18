@@ -12,6 +12,15 @@ crumb :user_sign_in do
   parent :root
 end
 
+crumb :item_show do |item|
+  link "商品名:#{item.item_name}の詳細", item_path(item)
+  parent :root
+end
+
+crumb :item_order do |item|
+  link "商品名:#{item.item_name}の購入", item_orders_path(item)
+  parent :item_show, item
+end
 
 # crumb :projects do
 #   link "Projects", projects_path
